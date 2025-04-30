@@ -7,7 +7,7 @@ This lab simulates a real-world scenario where a Cisco router connects an intern
 
 ## 📡 Topology
 
-[Laptop/PC] ←→ [Switch] ←→ [R1 Gi0/0] --- NAT --- [R1 Gi0/1] ←→ [Modem] IP: DHCP IP: 192.168.1.1 IP: DHCP (from modem)
+[Laptop/PC] ←→ [Switch] ←→ [R1 Gi0/0] --- NAT --- [R1 Gi0/1] ←→ [Modem] IP: DHCP IP: 192.168.10.1 IP: DHCP (from modem)
 
 
 ## ⚙️ Configuration - R1
@@ -16,7 +16,7 @@ This lab simulates a real-world scenario where a Cisco router connects an intern
 ## ! Configure Interfaces
 interface GigabitEthernet0/0
  description INSIDE (LAN)
- ip address 192.168.1.1 255.255.255.0
+ ip address 192.168.10.1 255.255.255.0
  ip nat inside
  no shutdown
 
@@ -28,17 +28,17 @@ interface GigabitEthernet0/0
 
 ## ! NAT Configuration
 ip access-list standard NAT_ACL
- permit 192.168.1.0 0.0.0.255
+ permit 192.168.10.0 0.0.0.255
 
 ## ip nat inside source list NAT_ACL interface GigabitEthernet0/1 overload
 
 ## ! DHCP Configuration
 ip dhcp pool LOCAL
- network 192.168.1.0 255.255.255.0
- default-router 192.168.1.1
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
  dns-server 8.8.8.8 1.1.1.1
 
-## ip dhcp excluded-address 192.168.1.1 192.168.1.10
+## ip dhcp excluded-address 192.168.10.1 192.168.10.10
 
 ✅ Test Steps
 Connect your laptop to the switch via Ethernet.
